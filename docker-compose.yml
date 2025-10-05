@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  server:
+    build: .
+    container_name: tgbot-server
+    restart: unless-stopped
+    environment:
+      - APP_MODE=server
+      - SERVER_ENTRY=server.py    # change if your server entrypoint has a different path/name
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  bot:
+    build: .
+    container_name: tgbot-bot
+    restart: unless-stopped
+    environment:
+      - APP_MODE=bot
+      - BOT_ENTRY=tgot.py         # change if your bot entrypoint has a different path/name
+      - TELEGRAM_BOT_TOKEN=your_bot_token_here
+      - TELEGRAM_API_ID=your_api_id_here
+      - TELEGRAM_API_HASH=your_api_hash_here
+      - ALLOWED_TELEGRAM_IDS=111111111,222222222
+      - SESSION_NAME=forwarder
+    volumes:
+      - ./session_data:/app/session_data
