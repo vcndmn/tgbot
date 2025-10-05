@@ -3,7 +3,7 @@
 Telegram Auto-Forwarder Bot — Pro Edition
 
 One process, two superpowers:
-- A Telegram **Bot UI** (python-telegram-bot v21) to configure everything from chat.
+ - A Telegram **Bot UI** (python-telegram-bot v20) to configure everything from chat.
 - A **Telethon client** that actually listens and forwards messages, with advanced tasks.
 
 Key features
